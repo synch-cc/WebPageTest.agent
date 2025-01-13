@@ -580,7 +580,9 @@ class WPTAgent(object):
                 # This only works on debian-based systems
                 logging.debug('Updating Node.js to 20.x')
                 subprocess.call('sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates', shell=True)
+                subprocess.call('sudo apt autoremove -y', shell=True)
                 subprocess.call('curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -', shell=True)
+                subprocess.call('sudo apt-get remove --purge libnode-dev -y', shell=True)
                 subprocess.call(['sudo', 'apt-get', 'install', '-y', 'nodejs'])
             if self.get_node_version() < 18.0:
                 logging.warning("Node.js 18 or newer is required for Lighthouse testing")
